@@ -31,9 +31,19 @@ export default {
       keepSignedin: true
     }
   },
+  mounted() {
+    this.$bus.$on('navigate', this.reset)
+  },
   methods: {
     submit() {
       this.$emit('do-sign-in', {...this.$data})
+    },
+    reset(selected){
+      if(selected == 'signup'){
+        this.username = '',
+        this.password = '',
+        this.keepSignedin = true
+      }
     }
   }
 }
