@@ -84,6 +84,7 @@ a{color:inherit;text-decoration:none}
 }
 
 .login-form .group input[type=text].invalid,
+.login-form .group input[type=email].invalid,
 .login-form .group input[type=password].invalid{
 	border: red 1px solid;
 }

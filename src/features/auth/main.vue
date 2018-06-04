@@ -16,6 +16,11 @@
 			doSignIn(obj) {
 				console.log(obj)
 			},
+			
+			doSignUp(obj) {
+				console.log(obj)
+			},
+
 			navigate(){
 				this.$bus.$emit('navigate', this.navigation)
 			}
@@ -30,7 +35,7 @@
 			<input id="tab-2" type="radio" name="tab" class="sign-up" v-model="navigation" value="signup" @change="navigate"><label for="tab-2" class="tab">Sign Up</label>
 			<div class="login-form">
 				<sign-in @do-sign-in="doSignIn"/>
-				<sign-up/>
+				<sign-up @do-sign-up="doSignUp"/>
 			</div>
 		</div>
 	</div>
