@@ -29,7 +29,7 @@ export default {
     return {
       username: '',
       password: '',
-      keepSignedin: true
+      keepSignedin: true,
     }
   },
   validations: {

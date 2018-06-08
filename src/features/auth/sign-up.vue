@@ -1,55 +1,3 @@
-<script>
-import { required } from 'vuelidate/lib/validators'
-export default {
-  data(){
-    return {
-      username: '',
-      password: '',
-      repassword: '',
-      email: ''
-    }
-  },
-  validations: {
-    username: {
-      required,
-    },
-    
-    password: {
-      required,
-    },
-    
-    repassword: {
-      required,
-    },
-    
-    email: {
-      required,
-    },
-
-  },
-  mounted() {
-    this.$bus.$on('navigate', this.reset)
-  },
-  methods: {
-    submit() {
-      if(!this.$v.$invalid){
-        this.$emit('do-sign-up', {...this.$data})
-      }else{
-        this.$v.$touch()
-      }
-    },
-    reset(selected){
-      if(selected == 'signin'){
-        this.username = '',
-        this.password = '',
-        this.repassword = '',
-        this.email = ''
-      }
-    }
-  }
-}
-</script>
-
 <template>
   <form action="#" @submit.prevent="submit" class="sign-up-htm">
     <div class="group">
@@ -77,3 +25,58 @@ export default {
     </div>
   </form>
 </template>
+
+<script>
+import { required, sameAs, email } from 'vuelidate/lib/validators'
+export default {
+  data(){
+    return {
+      username: '',
+      password: '',
+      repassword: '',
+      email: ''
+    }
+  },
+  validations: {
+    username: {
+      required,
+    },
+    
+    password: {
+      required,
+    },
+    
+    repassword: {
+      required,
+      sameAsPassword: sameAs('password')
+    },
+    
+    email: {
+      required,
+      email
+    },
+
+  },
+  mounted() {
+    this.$bus.$on('navigate', this.reset)
+  },
+  methods: {
+    submit() {
+      if(!this.$v.$invalid){
+        this.$emit('do-sign-up', {...this.$data})
+      }else{
+        this.$v.$touch()
+      }
+    },
+    reset(selected){
+      if(selected == 'signin'){
+        this.username = '',
+        this.password = '',
+        this.repassword = '',
+        this.email = ''
+        this.$v.$reset()
+      }
+    }
+  }
+}
+</script>

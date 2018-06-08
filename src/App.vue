@@ -1,5 +1,5 @@
 <template>
-  <Auth />
+    <Auth />
 </template>
 
 <script>

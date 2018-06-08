@@ -84,14 +84,14 @@ export default {
         alert("Preencha o nome corretamente");
         return false;
       }
-      db.ref().child('contatos').push({nome: this.nome, telefone: this.telefone, email: this.email});
+      db.database().ref().child('contatos').push({nome: this.nome, telefone: this.telefone, email: this.email});
       this.nome = '';
       this.telefone = ''; 
       this.email = '';
       
     },
     Salvar: function() {
-      db.ref().child('contatos/'+this.contatoAlt['.key']).update({nome: this.nome, telefone: this.telefone, email: this.email});
+      db.database().ref().child('contatos/'+this.contatoAlt['.key']).update({nome: this.nome, telefone: this.telefone, email: this.email});
       document.getElementById('btnIncluir').style.display = "inline-block";
       document.getElementById('spanBTN').style.display = "none";
       this.contatoAlt = '';
@@ -100,7 +100,7 @@ export default {
       this.email = '';
     },
     excluir: function(contato) {
-      db.ref().child('contatos/'+contato['.key']).remove();
+      db.database().ref().child('contatos/'+contato['.key']).remove();
     },
     montaAlterar: function(contato) {
       this.contatoAlt = contato;
@@ -121,7 +121,7 @@ export default {
   },
   firebase: {
     contatos: {
-      source: db.ref().child('contatos').orderByChild('nome'),
+      source: db.database().ref().child('contatos').orderByChild('nome'),
       cancelCallback(err){
         console.log(err)
       }

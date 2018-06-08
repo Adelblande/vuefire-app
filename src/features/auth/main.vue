@@ -1,33 +1,3 @@
-<script>
-	import SignIn from './sign-in'
-	import SignUp from './sign-up'
-	
-	export default {
-		data(){
-			return {
-				navigation: 'signin'
-			}
-		},
-		components: {
-			SignIn,
-			SignUp
-		},
-		methods: {
-			doSignIn(obj) {
-				console.log(obj)
-			},
-			
-			doSignUp(obj) {
-				console.log(obj)
-			},
-
-			navigate(){
-				this.$bus.$emit('navigate', this.navigation)
-			}
-		}
-	}
-</script>
-
 <template>
   <div class="login-wrap">
 		<div class="login-html">
@@ -41,5 +11,46 @@
 	</div>
 </template>
 
+<script>
+	import SignIn from './sign-in';
+	import SignUp from './sign-up';
+	import { db } from './../../firebase';
+
+	export default {
+		data(){
+			return {
+				navigation: 'signin',
+			}
+		},
+		components: {
+			SignIn,
+			SignUp
+		},
+		methods: {
+			doSignIn(obj) {
+				console.log(obj)
+				db
+					.auth()
+					.signInWithEmailAndPassword(obj.username, obj.password)
+					.then(result => {
+						console.log(result);
+						this.$router.replace('/contatos');
+					})
+					.catch(function(error){
+						console.log('Erro', error)
+					});
+        
+			},
+			
+			doSignUp(obj) {
+				console.log(obj)
+			},
+
+			navigate(){
+				this.$bus.$emit('navigate', this.navigation)
+			}
+		}
+	}
+</script>
 
 <style src="./../../css/sign.css"></style>
